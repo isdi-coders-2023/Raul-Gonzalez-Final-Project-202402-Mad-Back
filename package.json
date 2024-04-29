@@ -13,7 +13,8 @@
     "test:prod": "jest  --passWithNoTests --coverage",
     "test:dev": "cross-env NODE_ENV=test jest --watchAll --coverage",
     "lint": "eslint . --ext .ts",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",

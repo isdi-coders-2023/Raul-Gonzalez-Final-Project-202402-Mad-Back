@@ -10,21 +10,14 @@ module.exports = {
       env: {
         node: true,
       },
-      files: [
-        '.eslintrc.{js,cjs}',
-      ],
+      files: ['.eslintrc.{js,cjs}'],
       parserOptions: {
         sourceType: 'script',
       },
     },
     {
-      extends: [
-        'xo-typescript',
-      ],
-      files: [
-        '*.ts',
-        '*.tsx',
-      ],
+      extends: ['xo-typescript'],
+      files: ['*.ts', '*.tsx'],
     },
   ],
   parserOptions: {
@@ -32,5 +25,6 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    indent: 'off',
   },
 };
