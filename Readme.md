@@ -65,4 +65,4 @@ Proceso de login de usuario testado con Cypress
 - Responsabilidades de los componentes
 - Entities y relaciones
 - Rutas del backend
-- Trello (backlog completo)
+- Trello (backlog completo)h
