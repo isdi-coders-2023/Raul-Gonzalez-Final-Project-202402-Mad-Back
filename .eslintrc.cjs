@@ -3,28 +3,20 @@ module.exports = {
     browser: true,
     es2021: true,
     node: true,
+    jest: true,
   },
-  extends: 'xo',
+  extends: ['xo', 'prettier'],
   overrides: [
     {
-      env: {
-        node: true,
-      },
-      files: ['.eslintrc.{js,cjs}'],
-      parserOptions: {
-        sourceType: 'script',
-      },
-    },
-    {
-      extends: ['xo-typescript'],
+      extends: ['xo-typescript', 'prettier'],
       files: ['*.ts', '*.tsx'],
     },
   ],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
+    tsconfigRootDir: __dirname,
+    project: '/tsconfig.json',
   },
-  rules: {
-    indent: 'off',
-  },
+  rules: {},
 };
