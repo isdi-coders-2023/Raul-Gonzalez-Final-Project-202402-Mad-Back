@@ -1,5 +1,5 @@
 import { type PrismaClient } from '@prisma/client';
-import { UsersSqlRepo } from './users.sql.repo';
+import { UsersSqlRepo } from './users.sql.repo.js';
 import { HttpError } from '../middleware/errors.middleware';
 import { type UserCreateDto } from '../entities/user';
 

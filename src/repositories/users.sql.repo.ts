@@ -2,7 +2,7 @@ import createDebug from 'debug';
 import { type WithLoginRepo } from './type.repo';
 import { type UserCreateDto, type User } from '../entities/user';
 import { type PrismaClient } from '@prisma/client';
-import { HttpError } from '../middleware/errors.middleware';
+import { HttpError } from '../middleware/errors.middleware.js';
 const debug = createDebug('GONJI:users:repository:sql');
 
 const select = {
@@ -10,7 +10,7 @@ const select = {
   email: true,
   password: true,
   userName: true,
-  characters: {
+  character: {
     select: {
       id: true,
       name: true,
@@ -18,6 +18,7 @@ const select = {
       description: true,
       faction: true,
       race: true,
+      userId: true,
     },
   },
 };
