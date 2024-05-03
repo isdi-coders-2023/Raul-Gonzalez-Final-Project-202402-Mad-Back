@@ -5,7 +5,7 @@ export type User = {
   email: string;
   password: string;
   userName: string;
-  characters: Character[];
+  character: Character[];
 };
 
 export type UserCreateDto = {

@@ -3,6 +3,11 @@ import morgan from 'morgan';
 import cors from 'cors';
 import createDebug from 'debug';
 import { type PrismaClient } from '@prisma/client';
+import { AuthInterceptor } from './middleware/auth.interceptor.js';
+import { UsersSqlRepo } from './repositories/users.sql.repo.js';
+import { UsersController } from './controller/user.controller.js';
+import { UsersRouter } from './router/users.router.js';
+import { ErrorsMiddleware } from './middleware/errors.middleware.js';
 
 const debug = createDebug('GONJI:app');
 export const createApp = () => {
@@ -15,5 +20,13 @@ export const startApp = (app: Express, prisma: PrismaClient) => {
   app.use(express.json());
   app.use(morgan('dev'));
   app.use(cors());
-  app.use(express.static('public'));
+
+  const authInterceptor = new AuthInterceptor();
+  const userRepo = new UsersSqlRepo(prisma);
+  const userController = new UsersController(userRepo);
+  const userRouter = new UsersRouter(userController, authInterceptor);
+  app.use('/users', userRouter.router);
+
+  const errorsMiddleware = new ErrorsMiddleware();
+  app.use(errorsMiddleware.handle.bind(errorsMiddleware));
 };
