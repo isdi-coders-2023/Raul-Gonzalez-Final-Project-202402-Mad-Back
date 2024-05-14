@@ -36,7 +36,6 @@ export abstract class BaseController<T, C> {
 
   async create(req: Request, res: Response, next: NextFunction) {
     const data = req.body as C;
-
     const {
       error,
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment

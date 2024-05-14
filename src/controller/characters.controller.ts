@@ -28,12 +28,10 @@ export class CharacterController extends BaseController<
   async create(req: Request, res: Response, next: NextFunction) {
     debug('Creating character');
     req.body.userId = (req.body.payload as Payload).id;
-
     const { payload, ...rest } = req.body as CharacterCreateDto & {
       payload: Payload;
     };
     req.body = rest;
-
     await super.create(req, res, next);
   }
 }
