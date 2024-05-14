@@ -98,7 +98,7 @@ describe('Given a instance of the class TestController', () => {
         error: new Error('error'),
         value: {},
       });
-      const character = { title: 'title' };
+      const character = { name: 'name' };
       req.body = character;
       await controller.create(req, res, next);
       expect(next).toHaveBeenCalledWith(
@@ -111,7 +111,7 @@ describe('Given a instance of the class TestController', () => {
     test('Then it should call repo.create and next', async () => {
       const error = new Error('Something went wrong');
       (repo.create as jest.Mock).mockRejectedValue(error);
-      const character = { title: 'title', author: 'autor' };
+      const character = { name: 'name', userId: 'userId' };
       req.body = character;
       await controller.create(req, res, next);
       expect(next).toHaveBeenCalledWith(error);
@@ -120,7 +120,7 @@ describe('Given a instance of the class TestController', () => {
 
   describe('When we use the method update', () => {
     test('Then it should call repo.update', async () => {
-      const character = { title: 'title', authorId: 'test' };
+      const character = { name: 'name', faction: 'faction' };
       req.params = { id: '1' };
       req.body = character;
       (repo.update as jest.Mock).mockResolvedValue(character);
@@ -136,7 +136,7 @@ describe('Given a instance of the class TestController', () => {
         error: new Error('error'),
         value: {},
       });
-      const character = { authorId: 34 };
+      const character = { userId: 34 };
       req.body = character;
       await controller.update(req, res, next);
       expect(next).toHaveBeenCalledWith(
@@ -149,7 +149,7 @@ describe('Given a instance of the class TestController', () => {
     test('Then it should call repo.update and next', async () => {
       const error = new Error('Something went wrong');
       (repo.update as jest.Mock).mockRejectedValue(error);
-      const character = { title: 'title', authorId: 'test' };
+      const character = { name: 'name', userId: 'test' };
       req.body = character;
       await controller.update(req, res, next);
       expect(next).toHaveBeenCalledWith(error);

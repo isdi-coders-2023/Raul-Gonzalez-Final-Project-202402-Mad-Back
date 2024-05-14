@@ -35,7 +35,7 @@ describe('Given a instance of the class CharacterController', () => {
         race: 'elve',
         faction: 'gondor',
         imgUrl: 'test',
-        description: 'mi abuela',
+        description: 'testt',
       };
       const validateCharacter = {
         ...character,
