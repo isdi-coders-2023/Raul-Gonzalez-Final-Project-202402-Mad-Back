@@ -98,7 +98,7 @@ describe('Given a instance of the class TestController', () => {
         error: new Error('error'),
         value: {},
       });
-      const character = { name: 'name' };
+      const character = { mame: 'name' };
       req.body = character;
       await controller.create(req, res, next);
       expect(next).toHaveBeenCalledWith(
