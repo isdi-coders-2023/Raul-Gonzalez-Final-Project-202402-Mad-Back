@@ -47,4 +47,41 @@ describe('Given a instance of the class AuthInterceptor', () => {
       });
     });
   });
+
+  describe('When we use the method authorization', () => {
+    const req = {
+      body: { payload: {} },
+      params: { id: '123' },
+    } as unknown as Request;
+    const res = {} as unknown as Response;
+    const next = jest.fn();
+
+    type T = { id: string };
+
+    const repo: Repo<T, T> = {
+      readById: jest.fn().mockResolvedValue({ id: '123' }),
+    } as unknown as Repo<T, T>;
+
+    test('Then it should call next', async () => {
+      await interceptor.authorization(repo)(req, res, next);
+      expect(next).toHaveBeenCalled();
+    });
+
+    describe('And method have a second parameter', () => {
+      test('Then it should call next', async () => {
+        req.body = { payload: { id: '123' } };
+        await interceptor.authorization(repo, 'id')(req, res, next);
+        expect(next).toHaveBeenCalled();
+      });
+    });
+
+    describe('And fail repo readById', () => {
+      test('Then it should call next with error', async () => {
+        req.body = { payload: { id: '123' } };
+        repo.readById = jest.fn().mockRejectedValue(new Error('Error'));
+        await interceptor.authorization(repo)(req, res, next);
+        expect(next).toHaveBeenCalledWith(new Error('Error'));
+      });
+    });
+  });
 });

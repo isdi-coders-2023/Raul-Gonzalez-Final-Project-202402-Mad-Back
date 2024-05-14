@@ -12,7 +12,6 @@ export class AuthInterceptor {
 
   authentication(req: Request, _res: Response, next: NextFunction) {
     debug('Authenticating');
-
     const data = req.get('Authorization');
     const error = new HttpError(498, ' Token expired/invalid', 'Token invalid');
 
@@ -30,5 +29,39 @@ export class AuthInterceptor {
       error.message = (err as Error).message;
       next(error);
     }
+  }
+
+  authorization<T extends { id: string }>(
+    repo: Repo<T, Partial<T>>,
+    ownerKey?: keyof T
+  ) {
+    return async (req: Request, res: Response, next: NextFunction) => {
+      debug('Authorizing');
+
+      const { payload, ...rest } = req.body as { payload: Payload };
+      req.body = rest;
+
+      try {
+        const item: T = await repo.readById(req.params.id);
+
+        const ownerId = ownerKey ? item[ownerKey] : item.id;
+
+        if (payload.id !== ownerId) {
+          next(
+            new HttpError(
+              403,
+              'Forbidden',
+              'You are not allowed to access this resource'
+            )
+          );
+          return;
+        }
+
+        debug('Authorized', req.body);
+        next();
+      } catch (error) {
+        next(error);
+      }
+    };
   }
 }

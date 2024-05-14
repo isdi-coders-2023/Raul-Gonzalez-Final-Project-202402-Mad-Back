@@ -7,6 +7,7 @@ export const characterCreateSchema = joy.object<CharacterCreateDto>({
   description: joy.string().required(),
   faction: joy.string().required(),
   userId: joy.string().required(),
+  race: joy.string().required(),
 });
 export const characterUpdateSchema = joy.object<Partial<CharacterCreateDto>>({
   name: joy.string(),
@@ -14,4 +15,5 @@ export const characterUpdateSchema = joy.object<Partial<CharacterCreateDto>>({
   description: joy.string(),
   faction: joy.string(),
   userId: joy.string(),
+  race: joy.string(),
 });

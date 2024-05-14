@@ -4,7 +4,7 @@ export type Character = {
   imgUrl: string;
   description: string;
   faction: string;
-  race: 'men' | 'elf' | 'elve' | 'dwarf' | 'urukhai' | 'orc' | 'hobbit';
+  race: 'men' | 'elve' | 'dwarf' | 'urukhai' | 'orc' | 'hobbit';
   userId: string;
 };
 export type CharacterCreateDto = {
@@ -12,7 +12,7 @@ export type CharacterCreateDto = {
   imgUrl: string;
   description: string;
   faction: string;
-  race: 'men' | 'elf' | 'elve' | 'dwarf' | 'urukhai' | 'orc' | 'hobbit';
+  race: 'men' | 'elve' | 'dwarf' | 'urukhai' | 'orc' | 'hobbit';
   userId: string;
 };
 export type CharacterUpdateDto = Partial<CharacterCreateDto>;

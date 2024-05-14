@@ -16,7 +16,7 @@ describe('Given a instance of the class ErrorsMiddleware', () => {
   });
   describe('When we use the method handle with a HttpError', () => {
     test('Then it should call res.status 404', () => {
-      const error = new HttpError(404, 'Not Found', 'Article not found');
+      const error = new HttpError(404, 'Not Found', 'character not found');
       middleware.handle(error, req, res, next);
       expect(res.status).toHaveBeenCalledWith(404);
       expect(res.json).toHaveBeenCalled();

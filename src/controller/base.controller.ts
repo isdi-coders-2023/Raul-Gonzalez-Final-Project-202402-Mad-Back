@@ -10,7 +10,7 @@ export abstract class BaseController<T, C> {
   constructor(
     protected readonly repo: Repo<T, C>,
     protected readonly validateCreateDtoSchema: Joi.ObjectSchema<C>,
-    protected readonly validateUpdateDtoSchema: Joi.ObjectSchema<C>
+    protected readonly validateUpdateDtoSchema: Joi.ObjectSchema<Partial<C>>
   ) {
     debug('Instantiated base controller');
   }
