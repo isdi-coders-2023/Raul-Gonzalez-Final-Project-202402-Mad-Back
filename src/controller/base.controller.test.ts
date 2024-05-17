@@ -82,9 +82,9 @@ describe('Given a instance of the class TestController', () => {
 
   describe('When we use the method create', () => {
     test('Then it should call repo.create', async () => {
-      const article = { test: 'test' };
-      req.body = article;
-      (repo.create as jest.Mock).mockResolvedValue(article);
+      const character = { test: 'test' };
+      req.body = character;
+      (repo.create as jest.Mock).mockResolvedValue(character);
       await controller.create(req, res, next);
       expect(repo.create).toHaveBeenCalledWith({});
       expect(res.status).toHaveBeenCalledWith(201);
@@ -98,8 +98,8 @@ describe('Given a instance of the class TestController', () => {
         error: new Error('error'),
         value: {},
       });
-      const article = { title: 'title' };
-      req.body = article;
+      const character = { mame: 'name' };
+      req.body = character;
       await controller.create(req, res, next);
       expect(next).toHaveBeenCalledWith(
         new HttpError(406, 'Not Acceptable', 'error')
@@ -111,8 +111,8 @@ describe('Given a instance of the class TestController', () => {
     test('Then it should call repo.create and next', async () => {
       const error = new Error('Something went wrong');
       (repo.create as jest.Mock).mockRejectedValue(error);
-      const article = { title: 'title', author: 'autor' };
-      req.body = article;
+      const character = { name: 'name', userId: 'userId' };
+      req.body = character;
       await controller.create(req, res, next);
       expect(next).toHaveBeenCalledWith(error);
     });
@@ -120,13 +120,13 @@ describe('Given a instance of the class TestController', () => {
 
   describe('When we use the method update', () => {
     test('Then it should call repo.update', async () => {
-      const article = { title: 'title', authorId: 'test' };
+      const character = { name: 'name', faction: 'faction' };
       req.params = { id: '1' };
-      req.body = article;
-      (repo.update as jest.Mock).mockResolvedValue(article);
+      req.body = character;
+      (repo.update as jest.Mock).mockResolvedValue(character);
       await controller.update(req, res, next);
-      expect(repo.update).toHaveBeenCalledWith('1', article);
-      expect(res.json).toHaveBeenCalledWith(article);
+      expect(repo.update).toHaveBeenCalledWith('1', character);
+      expect(res.json).toHaveBeenCalledWith(character);
     });
   });
 
@@ -136,8 +136,8 @@ describe('Given a instance of the class TestController', () => {
         error: new Error('error'),
         value: {},
       });
-      const article = { authorId: 34 };
-      req.body = article;
+      const character = { userId: 34 };
+      req.body = character;
       await controller.update(req, res, next);
       expect(next).toHaveBeenCalledWith(
         new HttpError(406, 'Not Acceptable', 'error')
@@ -149,8 +149,8 @@ describe('Given a instance of the class TestController', () => {
     test('Then it should call repo.update and next', async () => {
       const error = new Error('Something went wrong');
       (repo.update as jest.Mock).mockRejectedValue(error);
-      const article = { title: 'title', authorId: 'test' };
-      req.body = article;
+      const character = { name: 'name', userId: 'test' };
+      req.body = character;
       await controller.update(req, res, next);
       expect(next).toHaveBeenCalledWith(error);
     });

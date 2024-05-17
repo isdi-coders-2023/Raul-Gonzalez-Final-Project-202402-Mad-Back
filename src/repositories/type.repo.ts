@@ -9,3 +9,7 @@ export type Repo<T, C> = {
 export type WithLoginRepo<T, C> = Repo<T, C> & {
   searchForLogin(key: 'email' | 'name', value: string): Promise<Partial<T>>;
 };
+
+export type WithSearchRace<T, C> = Repo<T, C> & {
+  searchForRace(value: string): Promise<Partial<T[]>>;
+};

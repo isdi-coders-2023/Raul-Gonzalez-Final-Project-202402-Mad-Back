@@ -10,7 +10,7 @@ export abstract class BaseController<T, C> {
   constructor(
     protected readonly repo: Repo<T, C>,
     protected readonly validateCreateDtoSchema: Joi.ObjectSchema<C>,
-    protected readonly validateUpdateDtoSchema: Joi.ObjectSchema<C>
+    protected readonly validateUpdateDtoSchema: Joi.ObjectSchema<Partial<C>>
   ) {
     debug('Instantiated base controller');
   }
@@ -36,7 +36,6 @@ export abstract class BaseController<T, C> {
 
   async create(req: Request, res: Response, next: NextFunction) {
     const data = req.body as C;
-
     const {
       error,
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
