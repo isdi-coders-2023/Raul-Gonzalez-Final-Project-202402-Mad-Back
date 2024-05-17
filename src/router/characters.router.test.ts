@@ -11,6 +11,7 @@ describe('Given a instance of the class CharacterRouter', () => {
     create: jest.fn(),
     update: jest.fn(),
     delete: jest.fn(),
+    getByRace: jest.fn(),
   } as unknown as CharacterController;
 
   const authInterceptor = {

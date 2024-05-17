@@ -43,10 +43,7 @@ export class CharacterRouter {
     );
     this.router.patch(
       '/:id',
-      // AuthInterceptor.authentication.bind(authInterceptor),
-      // authInterceptor
-      //   .authorization(characterSqlRepo, 'userId')
-      //   .bind(authInterceptor),
+
       filesInterceptor.singleFile('imgUrl'),
       filesInterceptor.cloudinaryUpload.bind(filesInterceptor),
       controller.update.bind(controller)
