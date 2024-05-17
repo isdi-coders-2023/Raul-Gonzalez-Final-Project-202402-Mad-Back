@@ -28,6 +28,11 @@ export class CharacterRouter {
       authInterceptor.authentication.bind(authInterceptor),
       controller.getById.bind(controller)
     );
+    this.router.get(
+      '/search/:race',
+      authInterceptor.authentication.bind(authInterceptor),
+      controller.getByRace.bind(controller)
+    );
     this.router.post(
       '/',
       authInterceptor.authentication.bind(authInterceptor),
@@ -38,10 +43,12 @@ export class CharacterRouter {
     );
     this.router.patch(
       '/:id',
-      authInterceptor.authentication.bind(authInterceptor),
-      authInterceptor
-        .authorization(characterSqlRepo, 'userId')
-        .bind(authInterceptor),
+      // AuthInterceptor.authentication.bind(authInterceptor),
+      // authInterceptor
+      //   .authorization(characterSqlRepo, 'userId')
+      //   .bind(authInterceptor),
+      filesInterceptor.singleFile('imgUrl'),
+      filesInterceptor.cloudinaryUpload.bind(filesInterceptor),
       controller.update.bind(controller)
     );
     this.router.delete(

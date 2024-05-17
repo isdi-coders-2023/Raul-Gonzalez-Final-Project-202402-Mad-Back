@@ -1,7 +1,7 @@
 import { type NextFunction, type Request, type Response } from 'express';
 import createDebug from 'debug';
 
-import { type Repo } from '../repositories/type.repo';
+import { type WithSearchRace, type Repo } from '../repositories/type.repo';
 import { BaseController } from './base.controller.js';
 import {
   type Character,
@@ -19,7 +19,9 @@ export class CharacterController extends BaseController<
   Character,
   CharacterCreateDto
 > {
-  constructor(protected readonly repo: Repo<Character, CharacterCreateDto>) {
+  constructor(
+    protected readonly repo: WithSearchRace<Character, CharacterCreateDto>
+  ) {
     super(repo, characterCreateSchema, characterUpdateSchema);
 
     debug('Instantiated character controller');
@@ -33,5 +35,16 @@ export class CharacterController extends BaseController<
     };
     req.body = rest;
     await super.create(req, res, next);
+  }
+
+  async getByRace(req: Request, res: Response, next: NextFunction) {
+    const { race } = req.params;
+    console.log(race);
+    try {
+      const result = await this.repo.searchForRace(race);
+      res.json(result);
+    } catch (error) {
+      next(error);
+    }
   }
 }

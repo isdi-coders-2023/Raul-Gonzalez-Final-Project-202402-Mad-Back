@@ -1,8 +1,9 @@
 import { type PrismaClient } from '@prisma/client';
 import createDebug from 'debug';
 import { HttpError } from '../middleware/errors.middleware.js';
-import { type Repo } from './type.repo.js';
+import { type WithSearchRace, type Repo } from './type.repo.js';
 import {
+  type Race,
   type Character,
   type CharacterCreateDto,
 } from '../entities/character.js';
@@ -18,7 +19,9 @@ const select = {
   userId: true,
 };
 
-export class CharacterSqlRepo implements Repo<Character, CharacterCreateDto> {
+export class CharacterSqlRepo
+  implements WithSearchRace<Character, CharacterCreateDto>
+{
   constructor(private readonly prisma: PrismaClient) {
     debug('Instantiated characters sql repository');
   }
@@ -81,5 +84,19 @@ export class CharacterSqlRepo implements Repo<Character, CharacterCreateDto> {
       where: { id },
       select,
     });
+  }
+
+  async searchForRace(race: Race) {
+    console.log(race);
+    const character = await this.prisma.character.findMany({
+      where: { race },
+      select,
+    });
+
+    if (!character) {
+      throw new HttpError(404, 'Not Found', `character ${race} not found`);
+    }
+
+    return character;
   }
 }
